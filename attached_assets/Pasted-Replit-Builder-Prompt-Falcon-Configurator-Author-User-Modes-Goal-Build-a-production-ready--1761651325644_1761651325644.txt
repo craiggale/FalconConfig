@@ -1,0 +1,211 @@
+Replit Builder Prompt — “Falcon Configurator (Author + User Modes)”
+
+Goal: Build a production-ready web app called Falcon Configurator that reads OXO-style Excel inputs (availability, pricing, technical data by engine), exposes them via APIs, and renders a buyer-facing configurator. Include an Author Mode to upload/refresh Excel data and an AI Edit panel to transform config content via natural language instructions. Tech stack: Python 3, Flask, pandas, openpyxl, SQLite (or JSON files), HTMX, Tailwind (CDN).
+
+Core Requirements
+
+Two Modes
+
+User Mode (default): clean configurator for end users.
+
+Author Mode: gated by a simple admin token set via env ADMIN_TOKEN. On login, set a secure session cookie. Author UI shows:
+
+File uploader for three Excel files:
+
+Falcon_Motors_OXO_Dummy_Pivoted.xlsx (features availability per market; features down, vehicles across)
+
+Falcon_OXO_Pricing_*.xlsx (one per market; “Base Price” row + feature rows)
+
+Falcon_Technical_Data_By_Engine_Pivoted.xlsx (engines across top, spec down)
+
+A “Data Status” panel (what’s loaded, last updated, row/column counts)
+
+AI Edit panel: textarea for instructions → calls /api/author/ai-edit to transform the loaded JSON config (e.g., “set Panoramic Roof to O for UK Base trims”, “increase Base Price of Falcon Sport Premium in US by $200”)
+
+Save / discard changes
+
+Data Model + Storage
+
+On upload, parse with pandas + openpyxl and normalize into an internal JSON schema:
+
+{
+  "markets": ["UK","EU","US"],
+  "availability": { "UK": { "features": [...], "vehicles": [...], "matrix": { "feature->vehicle": "S|O|NA" } }, ... },
+  "pricing": { "UK": { "vehicles": [{ "id": "...", "basePrice": 0 }], "featurePrices": { "feature": { "vehicleId": 0|NA } } }, ... },
+  "tech": { "engines": ["1.6L Petrol", "2.0L Hybrid", "Dual Motor EV", ...],
+            "params": ["Top Speed (km/h)", "0-100 km/h (s)", ...],
+            "table": { "param->engine": value } }
+}
+
+
+Persist to data/config.json and keep original uploads under data/uploads/.
+
+Provide a small mock dataset auto-loaded if nothing uploaded.
+
+APIs
+
+GET /api/markets → ["UK","EU","US"]
+
+GET /api/vehicles?market=UK → list of vehicle IDs (e.g., "Falcon | 1.6L Petrol | Hatchback | Tech")
+
+GET /api/features?market=UK → list of features
+
+GET /api/availability?market=UK → availability matrix (S/O/NA) keyed by feature/vehicle
+
+GET /api/pricing?market=UK → base prices + feature prices aligned to vehicles
+
+GET /api/tech → technical spec table (params x engines)
+
+POST /api/author/upload (Author Mode) → accepts one or more Excel files, auto-detects type, parses, merges into config
+
+POST /api/author/ai-edit (Author Mode) → body: { "instructions": "…" }
+
+If OPENAI_API_KEY is set, call OpenAI; else use a deterministic rules engine stub (regex/keyword mapping) to apply edits safely.
+
+Return preview diff + updated config (not persisted until /api/author/save)
+
+POST /api/author/save → persist current working config to data/config.json
+
+POST /api/author/discard → discard working copy and reload from disk
+
+All author endpoints require session with is_author=True.
+
+Configurator UX (User Mode)
+
+Step 1: Choose Market (dropdown: UK/EU/US)
+
+Step 2: Choose Vehicle (list from API; show base price prominently)
+
+Step 3: Feature selection table (features down, columns: status (S/O/NA), optional price if O, toggles for options)
+
+Business logic:
+
+S → locked and included at 0
+
+O → toggleable, price from pricing table (some may be 0.00)
+
+NA → disabled
+
+Summary Panel: Base price + selected options + total; show any tech highlights for the vehicle’s engine (top speed, 0–100, CO₂)
+
+Compare Toggle: “Compare trims” → quick side-by-side for the selected vehicle line in the chosen market
+
+Author UI
+
+/author/login (token form) → sets session
+
+/author → tabs:
+
+Uploads: drag-drop area; show parse logs & validation results (e.g., unknown vehicle IDs, unknown features, missing “Base Price” row)
+
+AI Edit: textarea + “Preview changes” → show JSON diff; “Apply & Save”
+
+Data Status: cards with counts (vehicles/features by market, engines, last updated, file names)
+
+Validation Rules
+
+Availability → vehicles & features must match across availability/pricing; warn if mismatch
+
+Pricing → must contain “Base Price”; S priced as 0; NA not allowed to have a price
+
+Tech → engines in tech table should match engines referenced in vehicles; warn if missing
+
+Show non-blocking warnings; allow save with warnings but record them
+
+Security
+
+Author Mode protected by ADMIN_TOKEN env var
+
+Flask SECRET_KEY env var for sessions
+
+File uploads restricted to .xlsx max 10MB; store under data/uploads/ with timestamped filenames
+
+Project Structure
+
+/main.py                # Flask app entry
+/requirements.txt       # flask, pandas, openpyxl, python-dotenv
+/templates/
+  base.html
+  index.html            # User Mode UI (Market/Vehicle/Features/Summary)
+  author_login.html
+  author.html           # Uploads, AI Edit, Data Status tabs
+/static/
+  app.js                # HTMX helpers and small JS
+  styles.css            # optional overrides
+/data/
+  config.json           # persisted normalized config
+  uploads/              # raw Excel uploads
+/services/
+  parser.py             # Excel → normalized JSON
+  pricing.py            # pricing resolution helpers
+  availability.py       # availability helpers
+  tech.py               # tech helpers
+  ai_edit.py            # OpenAI or stub editor
+  validators.py         # cross-file validation
+
+
+Implementation Details
+
+Use HTMX for dynamic partials: market → vehicles → features without heavy SPA complexity.
+
+Use Tailwind CDN for quick styling; keep UI clean and responsive.
+
+Provide unit conversion helpers in tech.py (km/h ↔ mph; kg ↔ lb) and expose toggle in UI (default metric).
+
+Currency symbols from market: UK £, EU €, US $. Format consistently in UI and API.
+
+Graceful empty states: if no config, load an embedded seed config so the app runs out-of-the-box.
+
+Acceptance Criteria
+
+App runs on Replit; default landing page is User Mode configurator
+
+Can switch to Author Mode via /author with token
+
+Uploading valid Excel files updates config; changes visible immediately in User Mode
+
+AI Edit can modify config via natural language (stub works without API key)
+
+Selecting market/vehicle shows correct base price and feature statuses; totals update when toggling O options
+
+Tech panel shows engine specs for the chosen vehicle’s engine
+
+All APIs documented at /api index (simple HTML with endpoints)
+
+Environment Variables
+
+ADMIN_TOKEN — required (e.g., set to any strong random string)
+
+SECRET_KEY — Flask sessions
+
+OPENAI_API_KEY — optional; if missing, use AI Edit stub
+
+Seed Data (baked in)
+
+Minimal in-code seed matching your Falcon files:
+
+Markets: UK/EU/US
+
+A handful of vehicles per market (IDs aligned to “Vehicle Line | Engine | Body Style | Trim”)
+
+Availability matrix with S/O/NA
+
+Pricing with Base Price row + feature rows (some O options at 0.00)
+
+Tech table: engines across top, params down
+
+Please scaffold this now with the structure above, including:
+
+Flask routes & templates
+
+API endpoints
+
+Excel parser and normalizers
+
+Author login, upload handlers, AI Edit stub
+
+Seed config and validation warnings
+
+Tailwind + HTMX UI
+
+When done, run the server and show the live URL.
