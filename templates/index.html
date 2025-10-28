@@ -1,0 +1,275 @@
+{% extends "base.html" %}
+
+{% block title %}Configure Your Falcon{% endblock %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div class="text-center mb-8">
+        <h1 class="text-4xl font-bold text-gray-900 mb-2">Configure Your Falcon</h1>
+        <p class="text-lg text-gray-600">Build your perfect vehicle in three easy steps</p>
+    </div>
+
+    <div id="configurator-app" class="space-y-8">
+        <div class="bg-white rounded-lg shadow-md p-6">
+            <h2 class="text-2xl font-semibold mb-4 flex items-center">
+                <span class="bg-blue-600 text-white rounded-full w-8 h-8 flex items-center justify-center mr-3">1</span>
+                Select Market
+            </h2>
+            <div id="market-selector">
+                <select id="market-select" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                    <option value="">Choose your market...</option>
+                </select>
+            </div>
+        </div>
+
+        <div id="vehicle-step" class="bg-white rounded-lg shadow-md p-6 hidden">
+            <h2 class="text-2xl font-semibold mb-4 flex items-center">
+                <span class="bg-blue-600 text-white rounded-full w-8 h-8 flex items-center justify-center mr-3">2</span>
+                Choose Vehicle
+            </h2>
+            <div id="vehicle-list" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            </div>
+        </div>
+
+        <div id="features-step" class="bg-white rounded-lg shadow-md p-6 hidden">
+            <h2 class="text-2xl font-semibold mb-4 flex items-center">
+                <span class="bg-blue-600 text-white rounded-full w-8 h-8 flex items-center justify-center mr-3">3</span>
+                Select Features
+            </h2>
+            <div id="features-table">
+            </div>
+        </div>
+
+        <div id="summary-panel" class="bg-blue-50 rounded-lg shadow-md p-6 hidden">
+            <h2 class="text-2xl font-semibold mb-4">Summary</h2>
+            <div id="summary-content">
+            </div>
+        </div>
+
+        <div id="tech-panel" class="bg-white rounded-lg shadow-md p-6 hidden">
+            <h2 class="text-2xl font-semibold mb-4">Technical Specifications</h2>
+            <div id="tech-content">
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+let currentMarket = '';
+let currentVehicle = null;
+let selectedFeatures = new Set();
+let pricingData = {};
+let availabilityData = [];
+
+async function loadMarkets() {
+    try {
+        const response = await fetch('/api/markets');
+        const markets = await response.json();
+        const select = document.getElementById('market-select');
+        markets.forEach(market => {
+            const option = document.createElement('option');
+            option.value = market;
+            option.textContent = market;
+            select.appendChild(option);
+        });
+    } catch (error) {
+        console.error('Error loading markets:', error);
+    }
+}
+
+async function loadVehicles(market) {
+    try {
+        const response = await fetch(`/api/vehicles?market=${market}`);
+        const vehicles = await response.json();
+        const container = document.getElementById('vehicle-list');
+        container.innerHTML = '';
+        
+        vehicles.forEach(vehicle => {
+            const card = document.createElement('div');
+            card.className = 'border border-gray-200 rounded-lg p-4 hover:border-blue-500 cursor-pointer transition';
+            card.innerHTML = `
+                <h3 class="font-semibold text-lg mb-2">${vehicle.id}</h3>
+                <p class="text-2xl font-bold text-blue-600">${vehicle.basePriceFormatted}</p>
+            `;
+            card.onclick = () => selectVehicle(vehicle);
+            container.appendChild(card);
+        });
+        
+        document.getElementById('vehicle-step').classList.remove('hidden');
+    } catch (error) {
+        console.error('Error loading vehicles:', error);
+    }
+}
+
+async function selectVehicle(vehicle) {
+    currentVehicle = vehicle;
+    selectedFeatures.clear();
+    
+    const [availResponse, pricingResponse, techResponse] = await Promise.all([
+        fetch(`/api/availability?market=${currentMarket}&vehicle=${encodeURIComponent(vehicle.id)}`),
+        fetch(`/api/pricing?market=${currentMarket}&vehicle=${encodeURIComponent(vehicle.id)}`),
+        fetch(`/api/tech?vehicle=${encodeURIComponent(vehicle.id)}`)
+    ]);
+    
+    availabilityData = (await availResponse.json()).features;
+    pricingData = await pricingResponse.json();
+    const techData = await techResponse.json();
+    
+    renderFeatures();
+    renderTechSpecs(techData);
+    updateSummary();
+    
+    document.getElementById('features-step').classList.remove('hidden');
+    document.getElementById('summary-panel').classList.remove('hidden');
+    document.getElementById('tech-panel').classList.remove('hidden');
+}
+
+function renderFeatures() {
+    const container = document.getElementById('features-table');
+    container.innerHTML = `
+        <div class="overflow-x-auto">
+            <table class="min-w-full divide-y divide-gray-200">
+                <thead class="bg-gray-50">
+                    <tr>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Feature</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Price</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Select</th>
+                    </tr>
+                </thead>
+                <tbody class="bg-white divide-y divide-gray-200" id="features-tbody">
+                </tbody>
+            </table>
+        </div>
+    `;
+    
+    const tbody = document.getElementById('features-tbody');
+    
+    availabilityData.forEach(item => {
+        const row = document.createElement('tr');
+        const featurePrice = pricingData.featurePrices[item.feature];
+        
+        let statusBadge = '';
+        let priceCell = '';
+        let selectCell = '';
+        
+        if (item.status === 'S') {
+            statusBadge = '<span class="px-2 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-800">Standard</span>';
+            priceCell = '<span class="text-gray-500">Included</span>';
+            selectCell = '<span class="text-gray-500">-</span>';
+            selectedFeatures.add(item.feature);
+        } else if (item.status === 'O') {
+            statusBadge = '<span class="px-2 py-1 text-xs font-semibold rounded-full bg-blue-100 text-blue-800">Optional</span>';
+            priceCell = featurePrice ? featurePrice.formatted : pricingData.currencySymbol + '0.00';
+            selectCell = `<input type="checkbox" class="feature-checkbox w-5 h-5 text-blue-600 rounded" data-feature="${item.feature}" data-price="${featurePrice ? featurePrice.price : 0}">`;
+        } else {
+            statusBadge = '<span class="px-2 py-1 text-xs font-semibold rounded-full bg-gray-100 text-gray-800">Not Available</span>';
+            priceCell = '<span class="text-gray-500">-</span>';
+            selectCell = '<span class="text-gray-500">-</span>';
+        }
+        
+        row.innerHTML = `
+            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">${item.feature}</td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm">${statusBadge}</td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${priceCell}</td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm">${selectCell}</td>
+        `;
+        
+        tbody.appendChild(row);
+    });
+    
+    document.querySelectorAll('.feature-checkbox').forEach(checkbox => {
+        checkbox.addEventListener('change', (e) => {
+            const feature = e.target.dataset.feature;
+            if (e.target.checked) {
+                selectedFeatures.add(feature);
+            } else {
+                selectedFeatures.delete(feature);
+            }
+            updateSummary();
+        });
+    });
+}
+
+function updateSummary() {
+    const container = document.getElementById('summary-content');
+    
+    let optionsTotal = 0;
+    const optionsList = [];
+    
+    selectedFeatures.forEach(feature => {
+        const avail = availabilityData.find(a => a.feature === feature);
+        if (avail && avail.status === 'O') {
+            const featurePrice = pricingData.featurePrices[feature];
+            if (featurePrice) {
+                optionsTotal += featurePrice.price;
+                optionsList.push({ feature, price: featurePrice.formatted });
+            }
+        }
+    });
+    
+    const total = pricingData.basePrice + optionsTotal;
+    
+    container.innerHTML = `
+        <div class="space-y-4">
+            <div class="flex justify-between items-center">
+                <span class="text-lg font-semibold">Vehicle:</span>
+                <span class="text-lg">${currentVehicle.id}</span>
+            </div>
+            <div class="flex justify-between items-center">
+                <span class="text-lg">Base Price:</span>
+                <span class="text-lg">${pricingData.basePriceFormatted}</span>
+            </div>
+            ${optionsList.length > 0 ? `
+                <div class="border-t pt-2">
+                    <p class="font-semibold mb-2">Selected Options:</p>
+                    ${optionsList.map(opt => `
+                        <div class="flex justify-between text-sm">
+                            <span>${opt.feature}</span>
+                            <span>${opt.price}</span>
+                        </div>
+                    `).join('')}
+                </div>
+            ` : ''}
+            <div class="border-t pt-4 flex justify-between items-center">
+                <span class="text-2xl font-bold">Total:</span>
+                <span class="text-2xl font-bold text-blue-600">${pricingData.currencySymbol}${total.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}</span>
+            </div>
+        </div>
+    `;
+}
+
+function renderTechSpecs(techData) {
+    const container = document.getElementById('tech-content');
+    
+    if (techData.highlights && techData.highlights.length > 0) {
+        container.innerHTML = `
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                ${techData.highlights.map(h => `
+                    <div class="text-center p-4 bg-gray-50 rounded-lg">
+                        <p class="text-sm text-gray-600 mb-1">${h.parameter}</p>
+                        <p class="text-2xl font-bold text-blue-600">${h.value}</p>
+                    </div>
+                `).join('')}
+            </div>
+        `;
+    } else {
+        container.innerHTML = '<p class="text-gray-500">Technical specifications not available</p>';
+    }
+}
+
+document.getElementById('market-select').addEventListener('change', (e) => {
+    currentMarket = e.target.value;
+    if (currentMarket) {
+        loadVehicles(currentMarket);
+        document.getElementById('features-step').classList.add('hidden');
+        document.getElementById('summary-panel').classList.add('hidden');
+        document.getElementById('tech-panel').classList.add('hidden');
+    }
+});
+
+loadMarkets();
+</script>
+{% endblock %}

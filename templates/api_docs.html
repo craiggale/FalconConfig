@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block title %}API Documentation{% endblock %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div class="mb-8">
+        <h1 class="text-3xl font-bold text-gray-900">API Documentation</h1>
+        <p class="text-gray-600 mt-2">Falcon Configurator REST API Endpoints</p>
+    </div>
+
+    {% for category, apis in endpoints.items() %}
+    <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+        <h2 class="text-2xl font-semibold mb-4 text-blue-600">{{ category }}</h2>
+        <div class="space-y-4">
+            {% for endpoint, description in apis.items() %}
+            <div class="border-l-4 border-blue-500 pl-4 py-2">
+                <code class="bg-gray-100 px-3 py-1 rounded text-sm font-mono">{{ endpoint }}</code>
+                <p class="text-gray-600 mt-2">{{ description }}</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endfor %}
+
+    <div class="bg-blue-50 rounded-lg p-6 mt-8">
+        <h3 class="font-semibold text-blue-900 mb-2">Example Usage</h3>
+        <pre class="bg-white p-4 rounded overflow-x-auto text-sm"><code>// Get all markets
+fetch('/api/markets')
+  .then(res => res.json())
+  .then(markets => console.log(markets));
+
+// Get vehicles for UK market
+fetch('/api/vehicles?market=UK')
+  .then(res => res.json())
+  .then(vehicles => console.log(vehicles));
+
+// Get pricing for specific vehicle
+fetch('/api/pricing?market=UK&vehicle=Falcon%20%7C%201.6L%20Petrol%20%7C%20Hatchback%20%7C%20Base')
+  .then(res => res.json())
+  .then(pricing => console.log(pricing));</code></pre>
+    </div>
+</div>
+{% endblock %}

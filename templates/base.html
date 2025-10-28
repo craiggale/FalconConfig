@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Falcon Configurator{% endblock %}</title>
+    <script src="https://unpkg.com/htmx.org@1.9.10"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <nav class="bg-white shadow-sm border-b border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <a href="{{ url_for('index') }}" class="text-2xl font-bold text-blue-600">Falcon Configurator</a>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <a href="{{ url_for('index') }}" class="text-gray-700 hover:text-blue-600 px-3 py-2">Configure</a>
+                    <a href="{{ url_for('api_index') }}" class="text-gray-700 hover:text-blue-600 px-3 py-2">API</a>
+                    {% if session.get('is_author') %}
+                    <a href="{{ url_for('author_dashboard') }}" class="text-gray-700 hover:text-blue-600 px-3 py-2">Author</a>
+                    <a href="{{ url_for('author_logout') }}" class="text-gray-700 hover:text-blue-600 px-3 py-2">Logout</a>
+                    {% else %}
+                    <a href="{{ url_for('author_login') }}" class="text-gray-700 hover:text-blue-600 px-3 py-2">Author Login</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="mt-12 bg-white border-t border-gray-200 py-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-gray-500 text-sm">
+            &copy; 2025 Falcon Motors. All rights reserved.
+        </div>
+    </footer>
+
+    <script src="{{ url_for('static', filename='app.js') }}"></script>
+    {% block scripts %}{% endblock %}
+</body>
+</html>
