@@ -1,0 +1,445 @@
+{
+  "markets": ["UK", "EU", "US"],
+  "availability": {
+    "UK": {
+      "features": [
+        "Panoramic Roof",
+        "Leather Seats",
+        "Navigation System",
+        "Parking Sensors",
+        "Cruise Control",
+        "Climate Control",
+        "Sport Package",
+        "Premium Audio"
+      ],
+      "vehicles": [
+        "Falcon | 1.6L Petrol | Hatchback | Base",
+        "Falcon | 1.6L Petrol | Hatchback | Tech",
+        "Falcon | 2.0L Hybrid | Sedan | Premium",
+        "Falcon Sport | Dual Motor EV | Coupe | Performance"
+      ],
+      "matrix": {
+        "Panoramic Roof": {
+          "Falcon | 1.6L Petrol | Hatchback | Base": "O",
+          "Falcon | 1.6L Petrol | Hatchback | Tech": "S",
+          "Falcon | 2.0L Hybrid | Sedan | Premium": "S",
+          "Falcon Sport | Dual Motor EV | Coupe | Performance": "S"
+        },
+        "Leather Seats": {
+          "Falcon | 1.6L Petrol | Hatchback | Base": "O",
+          "Falcon | 1.6L Petrol | Hatchback | Tech": "O",
+          "Falcon | 2.0L Hybrid | Sedan | Premium": "S",
+          "Falcon Sport | Dual Motor EV | Coupe | Performance": "S"
+        },
+        "Navigation System": {
+          "Falcon | 1.6L Petrol | Hatchback | Base": "O",
+          "Falcon | 1.6L Petrol | Hatchback | Tech": "S",
+          "Falcon | 2.0L Hybrid | Sedan | Premium": "S",
+          "Falcon Sport | Dual Motor EV | Coupe | Performance": "S"
+        },
+        "Parking Sensors": {
+          "Falcon | 1.6L Petrol | Hatchback | Base": "NA",
+          "Falcon | 1.6L Petrol | Hatchback | Tech": "S",
+          "Falcon | 2.0L Hybrid | Sedan | Premium": "S",
+          "Falcon Sport | Dual Motor EV | Coupe | Performance": "S"
+        },
+        "Cruise Control": {
+          "Falcon | 1.6L Petrol | Hatchback | Base": "O",
+          "Falcon | 1.6L Petrol | Hatchback | Tech": "S",
+          "Falcon | 2.0L Hybrid | Sedan | Premium": "S",
+          "Falcon Sport | Dual Motor EV | Coupe | Performance": "S"
+        },
+        "Climate Control": {
+          "Falcon | 1.6L Petrol | Hatchback | Base": "S",
+          "Falcon | 1.6L Petrol | Hatchback | Tech": "S",
+          "Falcon | 2.0L Hybrid | Sedan | Premium": "S",
+          "Falcon Sport | Dual Motor EV | Coupe | Performance": "S"
+        },
+        "Sport Package": {
+          "Falcon | 1.6L Petrol | Hatchback | Base": "NA",
+          "Falcon | 1.6L Petrol | Hatchback | Tech": "NA",
+          "Falcon | 2.0L Hybrid | Sedan | Premium": "O",
+          "Falcon Sport | Dual Motor EV | Coupe | Performance": "S"
+        },
+        "Premium Audio": {
+          "Falcon | 1.6L Petrol | Hatchback | Base": "O",
+          "Falcon | 1.6L Petrol | Hatchback | Tech": "O",
+          "Falcon | 2.0L Hybrid | Sedan | Premium": "S",
+          "Falcon Sport | Dual Motor EV | Coupe | Performance": "S"
+        }
+      }
+    },
+    "EU": {
+      "features": [
+        "Panoramic Roof",
+        "Leather Seats",
+        "Navigation System",
+        "Parking Sensors",
+        "Cruise Control",
+        "Climate Control",
+        "Sport Package",
+        "Premium Audio"
+      ],
+      "vehicles": [
+        "Falcon | 1.6L Petrol | Hatchback | Base",
+        "Falcon | 1.6L Petrol | Hatchback | Tech",
+        "Falcon | 2.0L Hybrid | Sedan | Premium",
+        "Falcon Sport | Dual Motor EV | Coupe | Performance"
+      ],
+      "matrix": {
+        "Panoramic Roof": {
+          "Falcon | 1.6L Petrol | Hatchback | Base": "O",
+          "Falcon | 1.6L Petrol | Hatchback | Tech": "S",
+          "Falcon | 2.0L Hybrid | Sedan | Premium": "S",
+          "Falcon Sport | Dual Motor EV | Coupe | Performance": "S"
+        },
+        "Leather Seats": {
+          "Falcon | 1.6L Petrol | Hatchback | Base": "O",
+          "Falcon | 1.6L Petrol | Hatchback | Tech": "O",
+          "Falcon | 2.0L Hybrid | Sedan | Premium": "S",
+          "Falcon Sport | Dual Motor EV | Coupe | Performance": "S"
+        },
+        "Navigation System": {
+          "Falcon | 1.6L Petrol | Hatchback | Base": "O",
+          "Falcon | 1.6L Petrol | Hatchback | Tech": "S",
+          "Falcon | 2.0L Hybrid | Sedan | Premium": "S",
+          "Falcon Sport | Dual Motor EV | Coupe | Performance": "S"
+        },
+        "Parking Sensors": {
+          "Falcon | 1.6L Petrol | Hatchback | Base": "NA",
+          "Falcon | 1.6L Petrol | Hatchback | Tech": "S",
+          "Falcon | 2.0L Hybrid | Sedan | Premium": "S",
+          "Falcon Sport | Dual Motor EV | Coupe | Performance": "S"
+        },
+        "Cruise Control": {
+          "Falcon | 1.6L Petrol | Hatchback | Base": "O",
+          "Falcon | 1.6L Petrol | Hatchback | Tech": "S",
+          "Falcon | 2.0L Hybrid | Sedan | Premium": "S",
+          "Falcon Sport | Dual Motor EV | Coupe | Performance": "S"
+        },
+        "Climate Control": {
+          "Falcon | 1.6L Petrol | Hatchback | Base": "S",
+          "Falcon | 1.6L Petrol | Hatchback | Tech": "S",
+          "Falcon | 2.0L Hybrid | Sedan | Premium": "S",
+          "Falcon Sport | Dual Motor EV | Coupe | Performance": "S"
+        },
+        "Sport Package": {
+          "Falcon | 1.6L Petrol | Hatchback | Base": "NA",
+          "Falcon | 1.6L Petrol | Hatchback | Tech": "NA",
+          "Falcon | 2.0L Hybrid | Sedan | Premium": "O",
+          "Falcon Sport | Dual Motor EV | Coupe | Performance": "S"
+        },
+        "Premium Audio": {
+          "Falcon | 1.6L Petrol | Hatchback | Base": "O",
+          "Falcon | 1.6L Petrol | Hatchback | Tech": "O",
+          "Falcon | 2.0L Hybrid | Sedan | Premium": "S",
+          "Falcon Sport | Dual Motor EV | Coupe | Performance": "S"
+        }
+      }
+    },
+    "US": {
+      "features": [
+        "Panoramic Roof",
+        "Leather Seats",
+        "Navigation System",
+        "Parking Sensors",
+        "Cruise Control",
+        "Climate Control",
+        "Sport Package",
+        "Premium Audio"
+      ],
+      "vehicles": [
+        "Falcon | 1.6L Petrol | Hatchback | Base",
+        "Falcon | 1.6L Petrol | Hatchback | Tech",
+        "Falcon | 2.0L Hybrid | Sedan | Premium",
+        "Falcon Sport | Dual Motor EV | Coupe | Performance"
+      ],
+      "matrix": {
+        "Panoramic Roof": {
+          "Falcon | 1.6L Petrol | Hatchback | Base": "O",
+          "Falcon | 1.6L Petrol | Hatchback | Tech": "S",
+          "Falcon | 2.0L Hybrid | Sedan | Premium": "S",
+          "Falcon Sport | Dual Motor EV | Coupe | Performance": "S"
+        },
+        "Leather Seats": {
+          "Falcon | 1.6L Petrol | Hatchback | Base": "O",
+          "Falcon | 1.6L Petrol | Hatchback | Tech": "O",
+          "Falcon | 2.0L Hybrid | Sedan | Premium": "S",
+          "Falcon Sport | Dual Motor EV | Coupe | Performance": "S"
+        },
+        "Navigation System": {
+          "Falcon | 1.6L Petrol | Hatchback | Base": "O",
+          "Falcon | 1.6L Petrol | Hatchback | Tech": "S",
+          "Falcon | 2.0L Hybrid | Sedan | Premium": "S",
+          "Falcon Sport | Dual Motor EV | Coupe | Performance": "S"
+        },
+        "Parking Sensors": {
+          "Falcon | 1.6L Petrol | Hatchback | Base": "NA",
+          "Falcon | 1.6L Petrol | Hatchback | Tech": "S",
+          "Falcon | 2.0L Hybrid | Sedan | Premium": "S",
+          "Falcon Sport | Dual Motor EV | Coupe | Performance": "S"
+        },
+        "Cruise Control": {
+          "Falcon | 1.6L Petrol | Hatchback | Base": "O",
+          "Falcon | 1.6L Petrol | Hatchback | Tech": "S",
+          "Falcon | 2.0L Hybrid | Sedan | Premium": "S",
+          "Falcon Sport | Dual Motor EV | Coupe | Performance": "S"
+        },
+        "Climate Control": {
+          "Falcon | 1.6L Petrol | Hatchback | Base": "S",
+          "Falcon | 1.6L Petrol | Hatchback | Tech": "S",
+          "Falcon | 2.0L Hybrid | Sedan | Premium": "S",
+          "Falcon Sport | Dual Motor EV | Coupe | Performance": "S"
+        },
+        "Sport Package": {
+          "Falcon | 1.6L Petrol | Hatchback | Base": "NA",
+          "Falcon | 1.6L Petrol | Hatchback | Tech": "NA",
+          "Falcon | 2.0L Hybrid | Sedan | Premium": "O",
+          "Falcon Sport | Dual Motor EV | Coupe | Performance": "S"
+        },
+        "Premium Audio": {
+          "Falcon | 1.6L Petrol | Hatchback | Base": "O",
+          "Falcon | 1.6L Petrol | Hatchback | Tech": "O",
+          "Falcon | 2.0L Hybrid | Sedan | Premium": "S",
+          "Falcon Sport | Dual Motor EV | Coupe | Performance": "S"
+        }
+      }
+    }
+  },
+  "pricing": {
+    "UK": {
+      "vehicles": [
+        {"id": "Falcon | 1.6L Petrol | Hatchback | Base", "basePrice": 18500},
+        {"id": "Falcon | 1.6L Petrol | Hatchback | Tech", "basePrice": 21500},
+        {"id": "Falcon | 2.0L Hybrid | Sedan | Premium", "basePrice": 32000},
+        {"id": "Falcon Sport | Dual Motor EV | Coupe | Performance", "basePrice": 48000}
+      ],
+      "featurePrices": {
+        "Panoramic Roof": {
+          "Falcon | 1.6L Petrol | Hatchback | Base": 1200,
+          "Falcon | 1.6L Petrol | Hatchback | Tech": 0,
+          "Falcon | 2.0L Hybrid | Sedan | Premium": 0,
+          "Falcon Sport | Dual Motor EV | Coupe | Performance": 0
+        },
+        "Leather Seats": {
+          "Falcon | 1.6L Petrol | Hatchback | Base": 800,
+          "Falcon | 1.6L Petrol | Hatchback | Tech": 800,
+          "Falcon | 2.0L Hybrid | Sedan | Premium": 0,
+          "Falcon Sport | Dual Motor EV | Coupe | Performance": 0
+        },
+        "Navigation System": {
+          "Falcon | 1.6L Petrol | Hatchback | Base": 600,
+          "Falcon | 1.6L Petrol | Hatchback | Tech": 0,
+          "Falcon | 2.0L Hybrid | Sedan | Premium": 0,
+          "Falcon Sport | Dual Motor EV | Coupe | Performance": 0
+        },
+        "Parking Sensors": {
+          "Falcon | 1.6L Petrol | Hatchback | Base": "NA",
+          "Falcon | 1.6L Petrol | Hatchback | Tech": 0,
+          "Falcon | 2.0L Hybrid | Sedan | Premium": 0,
+          "Falcon Sport | Dual Motor EV | Coupe | Performance": 0
+        },
+        "Cruise Control": {
+          "Falcon | 1.6L Petrol | Hatchback | Base": 350,
+          "Falcon | 1.6L Petrol | Hatchback | Tech": 0,
+          "Falcon | 2.0L Hybrid | Sedan | Premium": 0,
+          "Falcon Sport | Dual Motor EV | Coupe | Performance": 0
+        },
+        "Climate Control": {
+          "Falcon | 1.6L Petrol | Hatchback | Base": 0,
+          "Falcon | 1.6L Petrol | Hatchback | Tech": 0,
+          "Falcon | 2.0L Hybrid | Sedan | Premium": 0,
+          "Falcon Sport | Dual Motor EV | Coupe | Performance": 0
+        },
+        "Sport Package": {
+          "Falcon | 1.6L Petrol | Hatchback | Base": "NA",
+          "Falcon | 1.6L Petrol | Hatchback | Tech": "NA",
+          "Falcon | 2.0L Hybrid | Sedan | Premium": 3500,
+          "Falcon Sport | Dual Motor EV | Coupe | Performance": 0
+        },
+        "Premium Audio": {
+          "Falcon | 1.6L Petrol | Hatchback | Base": 450,
+          "Falcon | 1.6L Petrol | Hatchback | Tech": 450,
+          "Falcon | 2.0L Hybrid | Sedan | Premium": 0,
+          "Falcon Sport | Dual Motor EV | Coupe | Performance": 0
+        }
+      }
+    },
+    "EU": {
+      "vehicles": [
+        {"id": "Falcon | 1.6L Petrol | Hatchback | Base", "basePrice": 19800},
+        {"id": "Falcon | 1.6L Petrol | Hatchback | Tech", "basePrice": 23000},
+        {"id": "Falcon | 2.0L Hybrid | Sedan | Premium", "basePrice": 34500},
+        {"id": "Falcon Sport | Dual Motor EV | Coupe | Performance", "basePrice": 52000}
+      ],
+      "featurePrices": {
+        "Panoramic Roof": {
+          "Falcon | 1.6L Petrol | Hatchback | Base": 1300,
+          "Falcon | 1.6L Petrol | Hatchback | Tech": 0,
+          "Falcon | 2.0L Hybrid | Sedan | Premium": 0,
+          "Falcon Sport | Dual Motor EV | Coupe | Performance": 0
+        },
+        "Leather Seats": {
+          "Falcon | 1.6L Petrol | Hatchback | Base": 850,
+          "Falcon | 1.6L Petrol | Hatchback | Tech": 850,
+          "Falcon | 2.0L Hybrid | Sedan | Premium": 0,
+          "Falcon Sport | Dual Motor EV | Coupe | Performance": 0
+        },
+        "Navigation System": {
+          "Falcon | 1.6L Petrol | Hatchback | Base": 650,
+          "Falcon | 1.6L Petrol | Hatchback | Tech": 0,
+          "Falcon | 2.0L Hybrid | Sedan | Premium": 0,
+          "Falcon Sport | Dual Motor EV | Coupe | Performance": 0
+        },
+        "Parking Sensors": {
+          "Falcon | 1.6L Petrol | Hatchback | Base": "NA",
+          "Falcon | 1.6L Petrol | Hatchback | Tech": 0,
+          "Falcon | 2.0L Hybrid | Sedan | Premium": 0,
+          "Falcon Sport | Dual Motor EV | Coupe | Performance": 0
+        },
+        "Cruise Control": {
+          "Falcon | 1.6L Petrol | Hatchback | Base": 380,
+          "Falcon | 1.6L Petrol | Hatchback | Tech": 0,
+          "Falcon | 2.0L Hybrid | Sedan | Premium": 0,
+          "Falcon Sport | Dual Motor EV | Coupe | Performance": 0
+        },
+        "Climate Control": {
+          "Falcon | 1.6L Petrol | Hatchback | Base": 0,
+          "Falcon | 1.6L Petrol | Hatchback | Tech": 0,
+          "Falcon | 2.0L Hybrid | Sedan | Premium": 0,
+          "Falcon Sport | Dual Motor EV | Coupe | Performance": 0
+        },
+        "Sport Package": {
+          "Falcon | 1.6L Petrol | Hatchback | Base": "NA",
+          "Falcon | 1.6L Petrol | Hatchback | Tech": "NA",
+          "Falcon | 2.0L Hybrid | Sedan | Premium": 3800,
+          "Falcon Sport | Dual Motor EV | Coupe | Performance": 0
+        },
+        "Premium Audio": {
+          "Falcon | 1.6L Petrol | Hatchback | Base": 490,
+          "Falcon | 1.6L Petrol | Hatchback | Tech": 490,
+          "Falcon | 2.0L Hybrid | Sedan | Premium": 0,
+          "Falcon Sport | Dual Motor EV | Coupe | Performance": 0
+        }
+      }
+    },
+    "US": {
+      "vehicles": [
+        {"id": "Falcon | 1.6L Petrol | Hatchback | Base", "basePrice": 22500},
+        {"id": "Falcon | 1.6L Petrol | Hatchback | Tech", "basePrice": 26000},
+        {"id": "Falcon | 2.0L Hybrid | Sedan | Premium", "basePrice": 39000},
+        {"id": "Falcon Sport | Dual Motor EV | Coupe | Performance", "basePrice": 58000}
+      ],
+      "featurePrices": {
+        "Panoramic Roof": {
+          "Falcon | 1.6L Petrol | Hatchback | Base": 1500,
+          "Falcon | 1.6L Petrol | Hatchback | Tech": 0,
+          "Falcon | 2.0L Hybrid | Sedan | Premium": 0,
+          "Falcon Sport | Dual Motor EV | Coupe | Performance": 0
+        },
+        "Leather Seats": {
+          "Falcon | 1.6L Petrol | Hatchback | Base": 950,
+          "Falcon | 1.6L Petrol | Hatchback | Tech": 950,
+          "Falcon | 2.0L Hybrid | Sedan | Premium": 0,
+          "Falcon Sport | Dual Motor EV | Coupe | Performance": 0
+        },
+        "Navigation System": {
+          "Falcon | 1.6L Petrol | Hatchback | Base": 750,
+          "Falcon | 1.6L Petrol | Hatchback | Tech": 0,
+          "Falcon | 2.0L Hybrid | Sedan | Premium": 0,
+          "Falcon Sport | Dual Motor EV | Coupe | Performance": 0
+        },
+        "Parking Sensors": {
+          "Falcon | 1.6L Petrol | Hatchback | Base": "NA",
+          "Falcon | 1.6L Petrol | Hatchback | Tech": 0,
+          "Falcon | 2.0L Hybrid | Sedan | Premium": 0,
+          "Falcon Sport | Dual Motor EV | Coupe | Performance": 0
+        },
+        "Cruise Control": {
+          "Falcon | 1.6L Petrol | Hatchback | Base": 425,
+          "Falcon | 1.6L Petrol | Hatchback | Tech": 0,
+          "Falcon | 2.0L Hybrid | Sedan | Premium": 0,
+          "Falcon Sport | Dual Motor EV | Coupe | Performance": 0
+        },
+        "Climate Control": {
+          "Falcon | 1.6L Petrol | Hatchback | Base": 0,
+          "Falcon | 1.6L Petrol | Hatchback | Tech": 0,
+          "Falcon | 2.0L Hybrid | Sedan | Premium": 0,
+          "Falcon Sport | Dual Motor EV | Coupe | Performance": 0
+        },
+        "Sport Package": {
+          "Falcon | 1.6L Petrol | Hatchback | Base": "NA",
+          "Falcon | 1.6L Petrol | Hatchback | Tech": "NA",
+          "Falcon | 2.0L Hybrid | Sedan | Premium": 4200,
+          "Falcon Sport | Dual Motor EV | Coupe | Performance": 0
+        },
+        "Premium Audio": {
+          "Falcon | 1.6L Petrol | Hatchback | Base": 550,
+          "Falcon | 1.6L Petrol | Hatchback | Tech": 550,
+          "Falcon | 2.0L Hybrid | Sedan | Premium": 0,
+          "Falcon Sport | Dual Motor EV | Coupe | Performance": 0
+        }
+      }
+    }
+  },
+  "tech": {
+    "engines": ["1.6L Petrol", "2.0L Hybrid", "Dual Motor EV"],
+    "params": [
+      "Top Speed (km/h)",
+      "0-100 km/h (s)",
+      "Power (hp)",
+      "Torque (Nm)",
+      "CO2 Emissions (g/km)",
+      "Fuel Consumption (l/100km)",
+      "Battery Capacity (kWh)",
+      "Electric Range (km)"
+    ],
+    "table": {
+      "Top Speed (km/h)": {
+        "1.6L Petrol": "185",
+        "2.0L Hybrid": "210",
+        "Dual Motor EV": "250"
+      },
+      "0-100 km/h (s)": {
+        "1.6L Petrol": "9.8",
+        "2.0L Hybrid": "7.2",
+        "Dual Motor EV": "3.5"
+      },
+      "Power (hp)": {
+        "1.6L Petrol": "120",
+        "2.0L Hybrid": "180",
+        "Dual Motor EV": "450"
+      },
+      "Torque (Nm)": {
+        "1.6L Petrol": "160",
+        "2.0L Hybrid": "280",
+        "Dual Motor EV": "650"
+      },
+      "CO2 Emissions (g/km)": {
+        "1.6L Petrol": "128",
+        "2.0L Hybrid": "42",
+        "Dual Motor EV": "0"
+      },
+      "Fuel Consumption (l/100km)": {
+        "1.6L Petrol": "5.6",
+        "2.0L Hybrid": "1.8",
+        "Dual Motor EV": "N/A"
+      },
+      "Battery Capacity (kWh)": {
+        "1.6L Petrol": "N/A",
+        "2.0L Hybrid": "13.5",
+        "Dual Motor EV": "95"
+      },
+      "Electric Range (km)": {
+        "1.6L Petrol": "N/A",
+        "2.0L Hybrid": "65",
+        "Dual Motor EV": "520"
+      }
+    }
+  },
+  "metadata": {
+    "lastUpdated": "2025-10-28T00:00:00Z",
+    "uploadedFiles": [],
+    "version": "1.0.0"
+  }
+}
